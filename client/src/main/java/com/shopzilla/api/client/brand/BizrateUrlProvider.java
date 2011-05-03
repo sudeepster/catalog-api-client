@@ -45,7 +45,7 @@ public class BizrateUrlProvider extends AbstractBaseUrlProvider {
             "&startOffers=0" +
             "&resultsOffers=0" +
             "&sort=relevancy_desc" +
-            "&attFilter=" +
+            "&attFilter={attFilter}" +
             "&showAttributes={showAttributes}" +
             "&showProductAttributes={showProductAttributes}" +
             "&minRelevancyScore=100" +

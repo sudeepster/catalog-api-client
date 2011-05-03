@@ -40,6 +40,7 @@ public abstract class AbstractBaseUrlProvider implements UrlProvider {
         parameters.put("productType", request.getProductType());
         parameters.put("numResults", request.getNumResults());
         parameters.put("productId", request.getProductId());
+        parameters.put("attFilter", request.getAttFilter());
         parameters.put("offersOnly", request.getOffersOnly());
         parameters.put("showAttributes", request.isShowAttributes());
         parameters.put("showProductAttributes", request.isShowProductAttributes());

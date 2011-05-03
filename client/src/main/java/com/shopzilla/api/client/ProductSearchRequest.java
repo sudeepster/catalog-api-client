@@ -39,9 +39,10 @@ public class ProductSearchRequest {
     private Integer placementId = DEFAULT_PLACEMENT_ID;
     private String categoryId = EMPTY_STRING;
     private String productId = EMPTY_STRING;
+
+    private String attFilter = EMPTY_STRING;
     private Long merchantId;
-    
-    
+
     private Boolean offersOnly = Boolean.FALSE;
     private Boolean showAttributes = Boolean.FALSE;
     private Boolean showProductAttributes = Boolean.FALSE;
@@ -49,6 +50,7 @@ public class ProductSearchRequest {
     private ProductType productType;
 
     public String getApiKey() {
+
         return apiKey;
     }
 
@@ -94,6 +96,14 @@ public class ProductSearchRequest {
 
     public void setProductId(String productId) {
         this.productId = productId;
+    }
+
+    public String getAttFilter() {
+        return attFilter;
+    }
+
+    public void setAttFilter(String attFilter) {
+        this.attFilter = attFilter;
     }
 
     public Integer getNumResults() {
