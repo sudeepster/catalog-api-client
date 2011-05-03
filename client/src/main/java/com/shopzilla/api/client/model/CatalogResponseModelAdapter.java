@@ -71,7 +71,7 @@ public class CatalogResponseModelAdapter {
                     for (AttributeValueType t : catalogValues.getAttributeValue()) {
                         AttributeValue v = new AttributeValue();
                         v.setLabel(t.getName());
-                        v.setValue(t.getName());
+                        v.setValue(t.getId());
                         values.add(v);
                     }
                     attr.setValues(values);
