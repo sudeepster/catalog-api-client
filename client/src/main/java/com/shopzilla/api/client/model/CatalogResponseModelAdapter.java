@@ -24,6 +24,7 @@ import com.shopzilla.services.catalog.AttributeType;
 import com.shopzilla.services.catalog.AttributeType.AttributeValues;
 import com.shopzilla.services.catalog.AttributeValueType;
 import com.shopzilla.services.catalog.OfferType;
+import com.shopzilla.services.catalog.ProductType;
 import com.shopzilla.services.catalog.ProductResponse;
 import com.shopzilla.services.catalog.ProductResponse.Classification;
 import com.shopzilla.services.catalog.ProductResponse.RelatedAttributes;
@@ -70,8 +71,8 @@ public class CatalogResponseModelAdapter {
                             .size());
                     for (AttributeValueType t : catalogValues.getAttributeValue()) {
                         AttributeValue v = new AttributeValue();
-                        v.setLabel(t.getName());
-                        v.setValue(t.getId());
+                        v.setLabel(t.getId());
+                        v.setValue(t.getName());
                         values.add(v);
                     }
                     attr.setValues(values);
@@ -94,8 +95,15 @@ public class CatalogResponseModelAdapter {
             toReturn.setTotalResults(result.getOffers().getTotalResults());
             offers.addAll(convertOffers(result.getOffers().getOffer()));
         }
-        
         toReturn.setOffers(offers);
+
+        final ArrayList<Product> products = new ArrayList<Product>();
+        if (result.getProducts() != null
+                && CollectionUtils.isNotEmpty(result.getProducts().getProductOrOffer())) {
+            toReturn.setTotalResults(result.getProducts().getTotalResults());
+            products.addAll(convertProducts(result.getProducts().getProductOrOffer()));
+        }
+        toReturn.setProducts(products);
         
         return toReturn;
     }
@@ -132,5 +140,24 @@ public class CatalogResponseModelAdapter {
             offers.add(o);
         }
         return offers;
+    }
+
+    private static List<Product> convertProducts(List<?> rawProducts) {
+        ArrayList<Product> products = new ArrayList<Product>();
+        for (Object productOrOffer : rawProducts) {
+            if (!(productOrOffer instanceof ProductType)) {
+                continue;
+            }
+
+            ProductType catalogProduct = (ProductType) productOrOffer;
+            Product p = new Product();
+            p.setId(catalogProduct.getId());
+            p.setCategoryId(catalogProduct.getCategoryId());
+            p.setTitle(catalogProduct.getTitle());
+            p.setURL(catalogProduct.getUrl());
+
+            products.add(p);
+        }
+        return products;
     }
 }
